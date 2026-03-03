@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up • Luma-style Demo</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
+  <script defer src="./assets/app.js"></script>
+</head>
+<body>
+  <main class="main">
+    <section class="auth">
+      <a class="link" href="./signin.html">← Back to login</a>
+      <h1>Sign Up</h1>
+      <form class="card" data-auth="signup">
+        <div class="two-col">
+          <label>First Name
+            <input name="firstName" required />
+          </label>
+          <label>Last Name
+            <input name="lastName" required />
+          </label>
+        </div>
+        <label>Email
+          <input type="email" name="email" required />
+        </label>
+        <label>Password
+          <input type="password" name="password" required minlength="6" />
+        </label>
+        <label>Confirm Password
+          <input type="password" name="confirmPassword" required minlength="6" />
+        </label>
+
+        <button class="btn primary full" type="submit">Create account</button>
+        <p class="form-msg" data-auth-msg role="status" aria-live="polite"></p>
+      </form>
+      <p class="muted small">Demo-only. No real account is created.</p>
+    </section>
+  </main>
+</body>
+</html>
