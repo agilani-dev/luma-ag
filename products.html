@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Products • Luma-style Demo</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
+  <script defer src="./assets/data.js"></script>
+  <script defer src="./assets/app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="topbar">
+      <div class="brand">
+        <a href="./index.html" class="logo" aria-label="Home">
+          <span class="logo-mark">L</span><span class="logo-text">Luma</span>
+        </a>
+        <span class="tagline">Products</span>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="./products.html?cat=what%27s%20new">What’s New</a>
+        <a href="./products.html?cat=women">Women</a>
+        <a href="./products.html?cat=men">Men</a>
+        <a href="./products.html?cat=gear">Gear</a>
+        <a href="./products.html?cat=training">Training</a>
+        <a href="./products.html?cat=sale" class="pill">Sale</a>
+      </nav>
+
+      <div class="actions">
+        <a class="link" href="./signin.html">Sign In</a>
+        <button class="cart-btn" type="button" data-open-cart>
+          Cart <span class="cart-count" data-cart-count>0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="section">
+      <div class="section-head">
+        <h1 class="h2" data-products-title>All Products</h1>
+      </div>
+
+      <div class="filters">
+        <label>
+          <span class="muted small">Search</span>
+          <input type="search" placeholder="Try: capri, hoodie, bra…" data-search />
+        </label>
+        <label>
+          <span class="muted small">Category</span>
+          <select data-category>
+            <option value="">All</option>
+            <option value="what's new">What's New</option>
+            <option value="women">Women</option>
+            <option value="men">Men</option>
+            <option value="gear">Gear</option>
+            <option value="training">Training</option>
+            <option value="sale">Sale</option>
+          </select>
+        </label>
+        <label>
+          <span class="muted small">Sort</span>
+          <select data-sort>
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+            <option value="name-asc">Name: A → Z</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="grid" data-products-grid></div>
+    </section>
+  </main>
+
+  <footer class="footer compact">
+    <div class="footer-bottom">
+      <span>© <span data-year></span> Luma Demo.</span>
+      <span class="muted">Demo storefront for enablement.</span>
+    </div>
+  </footer>
+
+  <!-- Cart Drawer + Modal reused -->
+  <aside class="drawer" data-cart-drawer aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <h2>My cart</h2>
+        <button class="icon-btn" type="button" data-close-cart aria-label="Close cart">✕</button>
+      </div>
+      <div class="drawer-body" data-cart-items></div>
+      <div class="drawer-foot">
+        <div class="row">
+          <span>Subtotal</span>
+          <strong data-cart-subtotal>$0.00</strong>
+        </div>
+        <button class="btn primary full" type="button" data-checkout>Checkout (demo)</button>
+        <button class="btn full" type="button" data-clear-cart>Clear cart</button>
+      </div>
+    </div>
+    <div class="drawer-backdrop" data-close-cart tabindex="-1" aria-hidden="true"></div>
+  </aside>
+
+  <div class="modal" data-modal aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Product details">
+      <button class="icon-btn modal-close" type="button" data-modal-close aria-label="Close">✕</button>
+      <div class="modal-content" data-modal-content></div>
+    </div>
+    <div class="modal-backdrop" data-modal-close tabindex="-1" aria-hidden="true"></div>
+  </div>
+</body>
+</html>
