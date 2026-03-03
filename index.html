@@ -4,6 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Luma-style Demo Store</title>
+  <script>
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.track = function(event, data) {
+    window.adobeDataLayer.push({ event, ...data, ts: Date.now() });
+  };
+</script>
+
   <!-- Adobe Launch (Development) -->
 <script src="https://assets.adobedtm.com/b571b7f9ddbe/d3e531d2d643/launch-b4edbf5eb0ee-development.min.js" async></script>
   <link rel="stylesheet" href="./assets/styles.css" />
