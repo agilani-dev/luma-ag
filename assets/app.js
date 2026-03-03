@@ -38,6 +38,10 @@ function addToCart(id, qty = 1) {
   if (found) found.qty += qty;
   else cart.push({ id, qty });
   setCart(cart);
+  try {
+  const p = (window.LUMA_PRODUCTS || []).find(x => x.id === id);
+  window.track?.("add_to_cart", { productId: id, name: p?.name, category: p?.category, price: p?.price, qty });
+} catch {}
   updateCartBadges();
   renderCartDrawer();
 }
