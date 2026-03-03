@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Members • Luma-style Demo</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
+  <script defer src="./assets/app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="topbar">
+      <div class="brand">
+        <a href="./index.html" class="logo"><span class="logo-mark">L</span><span class="logo-text">Luma</span></a>
+        <span class="tagline">Community</span>
+      </div>
+      <nav class="nav">
+        <a href="./index.html">Home</a>
+        <a href="./products.html">Products</a>
+        <a href="./signin.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="section">
+      <div class="section-head">
+        <h1 class="h2">Members</h1>
+        <span class="muted">Participation Board (demo)</span>
+      </div>
+
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr><th>Badge</th><th>Name</th><th class="right">Score</th></tr>
+          </thead>
+          <tbody id="members-body">
+            <tr><td>🏅</td><td>Unknown</td><td class="right">36</td></tr>
+            <tr><td>🥈</td><td>Unknown</td><td class="right">19</td></tr>
+            <tr><td>🥉</td><td>Unknown</td><td class="right">17</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer compact">
+    <div class="footer-bottom">
+      <span>© <span data-year></span> Luma Demo.</span>
+    </div>
+  </footer>
+</body>
+</html>
