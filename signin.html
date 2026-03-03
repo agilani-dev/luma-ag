@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign In • Luma-style Demo</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
+  <script defer src="./assets/data.js"></script>
+  <script defer src="./assets/app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="topbar">
+      <div class="brand">
+        <a href="./index.html" class="logo"><span class="logo-mark">L</span><span class="logo-text">Luma</span></a>
+        <span class="tagline">Community</span>
+      </div>
+      <nav class="nav">
+        <a href="./index.html">Home</a>
+        <a href="./products.html">Products</a>
+        <a href="./members.html">Members</a>
+      </nav>
+      <div class="actions">
+        <button class="cart-btn" type="button" data-open-cart>
+          Cart <span class="cart-count" data-cart-count>0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="auth">
+      <h1>Login</h1>
+      <p class="muted">Demo-only. Stores a fake session in localStorage.</p>
+
+      <form class="card" data-auth="signin">
+        <label>Email
+          <input type="email" name="email" required placeholder="you@company.com" />
+        </label>
+        <label>Password
+          <input type="password" name="password" required placeholder="••••••••" />
+        </label>
+
+        <button class="btn primary full" type="submit">Login</button>
+        <div class="auth-links">
+          <a href="./signup.html">Not a member? Sign up</a>
+          <a href="#" data-forgot>Forgot User Name / Password</a>
+        </div>
+
+        <p class="form-msg" data-auth-msg role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer compact">
+    <div class="footer-bottom">
+      <span>© <span data-year></span> Luma Demo.</span>
+      <span class="muted">Terms of use &amp; privacy policy (demo)</span>
+    </div>
+  </footer>
+
+  <aside class="drawer" data-cart-drawer aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <h2>My cart</h2>
+        <button class="icon-btn" type="button" data-close-cart aria-label="Close cart">✕</button>
+      </div>
+      <div class="drawer-body" data-cart-items></div>
+      <div class="drawer-foot">
+        <div class="row"><span>Subtotal</span><strong data-cart-subtotal>$0.00</strong></div>
+        <button class="btn primary full" type="button" data-checkout>Checkout (demo)</button>
+        <button class="btn full" type="button" data-clear-cart>Clear cart</button>
+      </div>
+    </div>
+    <div class="drawer-backdrop" data-close-cart tabindex="-1" aria-hidden="true"></div>
+  </aside>
+</body>
+</html>
