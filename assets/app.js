@@ -83,8 +83,25 @@ if (
   location.pathname.endsWith("/index.html") ||
   location.pathname === "/" ||
   location.pathname.endsWith("/luma-ag/")
-) {
-  deliverHomepageHeroDecision();
+)
+   function waitForAlloyAndRun(callback, timeoutMs = 3000) {
+  const start = Date.now();
+
+  function check() {
+    if (typeof window.alloy === "function") {
+      callback();
+      return;
+    }
+
+    if (Date.now() - start > timeoutMs) {
+      console.error("Timed out waiting for Alloy");
+      return;
+    }
+
+    setTimeout(check, 50);
+  }
+
+  check();
 }
 
   /* -----------------------------
