@@ -508,7 +508,7 @@ function deliverHomepageHeroDecision() {
   // 3. Request the decision scope from Target
   window.alloy("sendEvent", {
     type: "decisioning.propositionFetch",
-
+renderDecisions: true,
     decisionScopes: [
       "hp.hero.art"
     ],
