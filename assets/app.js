@@ -84,6 +84,11 @@ if (
   location.pathname === "/" ||
   location.pathname.endsWith("/luma-ag/")
 )
+   
+{
+  waitForAlloyAndRun(deliverHomepageHeroDecision);
+}
+
    function waitForAlloyAndRun(callback, timeoutMs = 3000) {
   const start = Date.now();
 
