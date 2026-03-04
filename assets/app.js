@@ -78,6 +78,14 @@
       fn();
     }
   }
+   // Run Target decisioning ONLY on homepage
+if (
+  location.pathname.endsWith("/index.html") ||
+  location.pathname === "/" ||
+  location.pathname.endsWith("/luma-ag/")
+) {
+  deliverHomepageHeroDecision();
+}
 
   /* -----------------------------
    * 3) Cart (localStorage)
@@ -463,7 +471,65 @@
       alert("Demo checkout — wire this to your enablement flow / analytics events.");
     });
   }
+function deliverHomepageHeroDecision() {
+  // 1. Find the hero container
+  const heroEl = document.querySelector(
+    '[data-decision-scope="hp.hero.art"]'
+  );
 
+  // 2. Safety checks
+  if (!heroEl) {
+    console.warn("Hero element not found for decision scope");
+    return;
+  }
+
+  if (typeof window.alloy !== "function") {
+    console.warn("Alloy is not available");
+    return;
+  }
+
+  // 3. Request the decision scope from Target
+  window.alloy("sendEvent", {
+    type: "decisioning.propositionFetch",
+
+    decisionScopes: [
+      "hp.hero.art"
+    ],
+
+    data: {
+      __adobe: {
+        target: {
+          pageType: "homepage"
+        }
+      }
+    }
+  })
+  .then((result) => {
+    if (!result || !result.propositions) {
+      return;
+    }
+
+    // 4. Find our specific scope
+    result.propositions.forEach((proposition) => {
+      if (proposition.scope !== "hp.hero.art") {
+        return;
+      }
+
+      // 5. Apply HTML offer
+      proposition.items.forEach((item) => {
+        if (
+          item.schema ===
+          "https://ns.adobe.com/personalization/html-content-item"
+        ) {
+          heroEl.innerHTML = item.data.content;
+        }
+      });
+    });
+  })
+  .catch((error) => {
+    console.error("Target decisioning error", error);
+  });
+}
   /* -----------------------------
    * 7) Boot sequence
    * ----------------------------- */
