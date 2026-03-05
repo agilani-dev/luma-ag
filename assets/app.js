@@ -270,27 +270,31 @@ if (
    * 5) Product rendering
    * ----------------------------- */
   function productCard(p) {
-    const badge =
-      p.tags?.includes("sale") ? `<span class="badge sale">Sale</span>` :
-      p.tags?.includes("featured") ? `<span class="badge">Featured</span>` : "";
+  const badge =
+    p.tags?.includes("sale") ? `<span class="badge sale">Sale</span>` :
+    p.tags?.includes("featured") ? `<span class="badge">Featured</span>` : "";
 
-    return `
-      <article class="product" data-product="${p.id}">
-        <div class="product-top">
-          ${badge}
-          <div class="product-img" aria-hidden="true">${(p.name || "?").slice(0,1)}</div>
+  const scopeAttr = p.decisionScope
+    ? `data-decision-scope="${p.decisionScope}"`
+    : "";
+
+  return `
+    <article class="product" data-product="${p.id}" ${scopeAttr}>
+      <div class="product-top">
+        ${badge}
+        <div class="product-img" aria-hidden="true">${(p.name || "?").slice(0,1)}</div>
+      </div>
+      <h3 class="product-name">${p.name}</h3>
+      <p class="muted small">${p.desc || ""}</p>
+      <div class="product-row">
+        <strong>${money(p.price)}</strong>
+        <div class="product-actions">
+          <button class="btn sm" type="button" data-quick="${p.id}">Quick view</button>
+          <button class="btn sm primary" type="button" data-add="${p.id}">Add</button>
         </div>
-        <h3 class="product-name">${p.name}</h3>
-        <p class="muted small">${p.desc || ""}</p>
-        <div class="product-row">
-          <strong>${money(p.price)}</strong>
-          <div class="product-actions">
-            <button class="btn sm" type="button" data-quick="${p.id}">Quick view</button>
-            <button class="btn sm primary" type="button" data-add="${p.id}">Add</button>
-          </div>
-        </div>
-      </article>`;
-  }
+      </div>
+    </article>`;
+}
 
   function bindProductActions(root = document) {
     $$("[data-add]", root).forEach(btn => {
