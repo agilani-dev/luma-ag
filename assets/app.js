@@ -131,3 +131,54 @@
     if (!prop) return;
 
     const htmlItem = prop.items?.find(
+      i => i.schema === "https://ns.adobe.com/personalization/html-content-item"
+    );
+    if (!htmlItem) return;
+
+    el.innerHTML = htmlItem.data.content;
+  }
+
+  /* -----------------------------
+   * 5) ✅ UPDATED: Homepage decisioning
+   *     hp.hero.art is preserved
+   * ----------------------------- */
+  function deliverHomepageDecisions() {
+    const scopes = getHomepageDecisionScopes();
+
+    if (!scopes.includes("hp.hero.art")) {
+      console.warn("hp.hero.art scope missing from DOM");
+    }
+
+    window.alloy("sendEvent", {
+      type: "decisioning.propositionFetch",
+      renderDecisions: true,
+      decisionScopes: scopes,
+      data: {
+        __adobe: {
+          target: { pageType: "homepage" }
+        }
+      }
+    })
+    .then(({ propositions = [] }) => {
+      scopes.forEach(scope => applyHtmlOffer(scope, propositions));
+    })
+    .catch(err => console.error("Target decisioning error", err));
+  }
+
+  /* -----------------------------
+   * 6) Boot sequence
+   * ----------------------------- */
+  document.addEventListener("DOMContentLoaded", () => {
+    initHomeFeatured();
+
+    if (isHomepage()) {
+      waitForAlloyAndRun(() => {
+        requestAnimationFrame(deliverHomepageDecisions);
+      });
+    }
+
+    track("page_view", { referrer: document.referrer || null });
+  });
+
+})();
+``
