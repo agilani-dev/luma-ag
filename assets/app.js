@@ -79,36 +79,30 @@
 // AJO Edge Decisioning – Top Seller
 // ----------------------------------
 function fetchAjoTopSeller() {
-  const surface =
-    "web://agilani-dev.github.io/luma-ag/index.html#index-top-seller";
-
-  const el = document.getElementById("index-top-seller");
-  if (!el) return;
+  const container = document.getElementById("index-top-seller");
+  if (!container) return;
 
   window.alloy("sendEvent", {
     type: "decisioning.propositionFetch",
 
-    // ✅ Explicit AJO surface — overrides page surface
-    personalization: {
-      surfaces: [surface]
-    },
-
-    // ✅ Manual rendering
+    // ✅ Page surface – matches SDK behavior
     renderDecisions: false
   })
   .then(({ propositions = [] }) => {
-    const prop = propositions.find(p => p.scope === surface);
+    // ✅ Find the page-scope proposition
+    const prop = propositions.find(p =>
+      p.scope === "web://agilani-dev.github.io/luma-ag/index.html"
+    );
     if (!prop) return;
 
     const item = prop.items?.[0];
     if (!item?.data?.content) return;
 
-    el.innerHTML = item.data.content;
-    el.hidden = false;
+    container.innerHTML = item.data.content;
+    container.hidden = false;
   })
-  .catch(console.error);
+  .catch(err => console.error("AJO decisioning error", err));
 }
-``
    
   /* -----------------------------
    * 3) Product rendering
