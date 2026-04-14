@@ -80,16 +80,18 @@
 // ----------------------------------
 function fetchAjoTopSeller() {
   const surface = "web://agilani-dev.github.io/luma-ag#index-top-seller";
-  const container = document.getElementById("index-top-seller");
-
-  if (!container) {
-    console.warn("AJO surface container not found");
-    return;
-  }
+  const el = document.getElementById("index-top-seller");
+  if (!el) return;
 
   window.alloy("sendEvent", {
     type: "decisioning.propositionFetch",
-    decisionScopes: [surface],
+
+    // ✅ EXPLICIT surface definition (THIS IS THE KEY FIX)
+    personalization: {
+      surfaces: [surface]
+    },
+
+    // ✅ We will manually render
     renderDecisions: false
   })
   .then(({ propositions = [] }) => {
@@ -99,9 +101,8 @@ function fetchAjoTopSeller() {
     const item = prop.items?.[0];
     if (!item?.data?.content) return;
 
-    // Render decision and reveal slot
-    container.innerHTML = item.data.content;
-    container.hidden = false;
+    el.innerHTML = item.data.content;
+    el.hidden = false;
   })
   .catch(err => console.error("AJO Edge Decisioning error", err));
 }
