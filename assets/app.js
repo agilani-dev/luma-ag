@@ -208,6 +208,16 @@ function fetchAjoTopSeller() {
       });
     }
 
+
+// ✅ AJO Edge Decisioning – homepage only
+  if (
+    location.pathname === "/" ||
+    location.pathname.endsWith("/index.html") ||
+    location.pathname.endsWith("/luma-ag/")
+  ) {
+    waitForAlloyAndRun(fetchAjoTopSeller);
+  }
+     
     track("page_view", { referrer: document.referrer || null });
   });
 
