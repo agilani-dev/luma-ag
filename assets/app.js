@@ -75,6 +75,37 @@
     );
   }
 
+// ----------------------------------
+// AJO Edge Decisioning – Top Seller
+// ----------------------------------
+function fetchAjoTopSeller() {
+  const surface = "web://agilani-dev.github.io/luma-ag#index-top-seller";
+  const container = document.getElementById("index-top-seller");
+
+  if (!container) {
+    console.warn("AJO surface container not found");
+    return;
+  }
+
+  window.alloy("sendEvent", {
+    type: "decisioning.propositionFetch",
+    decisionScopes: [surface],
+    renderDecisions: false
+  })
+  .then(({ propositions = [] }) => {
+    const prop = propositions.find(p => p.scope === surface);
+    if (!prop) return;
+
+    const item = prop.items?.[0];
+    if (!item?.data?.content) return;
+
+    // Render decision and reveal slot
+    container.innerHTML = item.data.content;
+    container.hidden = false;
+  })
+  .catch(err => console.error("AJO Edge Decisioning error", err));
+}
+   
   /* -----------------------------
    * 3) Product rendering
    * ----------------------------- */
